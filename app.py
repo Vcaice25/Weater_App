@@ -3,7 +3,8 @@ import requests
 from dotenv import load_dotenv, dotenv_values
 
 
-config = dotenv_values ('.env')
+config = dotenv_values ('.env') 
+load_dotenv('.env')
 
 
 app = Flask (__name__)
@@ -16,10 +17,20 @@ def get_weather_data(city):
     print (r)
     return r
 
-@app.route('/Caice')
-def Caice ():
-    get_weather_data('Guayaquil')  
-    return get_weather_data('Guayaquil')
+@app.route('/prueba')
+def prueba ():
+    clima=get_weater_data('Guayaquil')
+    temperatura=str (clima['main']['temp'] )
+    descripcion =str(clima['weather'][0]['description'])
+    icono=str(clima['weather'] [0]['icon'])
+    r_json={
+        'ciudad': 'Guayaquil',
+        'temperatura':temperatura,
+        'descripcion':descripcion,
+        'icono':icono
+        }
+     return render_template('weather.html' ,clima= r_json)  
+   
 
 
 
